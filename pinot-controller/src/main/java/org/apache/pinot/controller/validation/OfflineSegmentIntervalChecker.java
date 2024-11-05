@@ -199,7 +199,11 @@ public class OfflineSegmentIntervalChecker extends ControllerPeriodicTask<Void> 
   static long computeOfflineTotalDocumentInSegments(List<SegmentZKMetadata> segmentsZKMetadata) {
     long numTotalDocs = 0;
     for (SegmentZKMetadata segmentZKMetadata : segmentsZKMetadata) {
-      numTotalDocs += segmentZKMetadata.getTotalDocs();
+      // this returns -1 if it's not present which can be true for in progress segments
+      long totalDocs = segmentZKMetadata.getTotalDocs();
+      if (totalDocs > 0) {
+        numTotalDocs += totalDocs;
+      }
     }
     return numTotalDocs;
   }
