@@ -114,9 +114,11 @@ public class ValidationManagerTest {
     List<SegmentZKMetadata> segmentsZKMetadata = new ArrayList<>();
     String segmentName5 = new LLCSegmentName(TEST_TABLE_NAME, 1, 0, 1000).getSegmentName();
     String segmentName6 = new LLCSegmentName(TEST_TABLE_NAME, 2, 27, 10000).getSegmentName();
+    String inProgressSegment = new LLCSegmentName(TEST_TABLE_NAME, 3, 34, 100000).getSegmentName();
     segmentsZKMetadata.add(SegmentMetadataMockUtils.mockSegmentZKMetadata(segmentName5, 10));
     segmentsZKMetadata.add(SegmentMetadataMockUtils.mockSegmentZKMetadata(segmentName6, 5));
     segmentsZKMetadata.add(SegmentMetadataMockUtils.mockSegmentZKMetadata(TEST_SEGMENT_NAME, 15));
+    segmentsZKMetadata.add(SegmentMetadataMockUtils.mockSegmentZKMetadata(inProgressSegment, -1));
     assertEquals(RealtimeSegmentValidationManager.computeTotalDocumentCount(segmentsZKMetadata), 30);
   }
 
